@@ -1,0 +1,30 @@
+import pygame
+import keyword
+pygame.init()
+x = 400
+y = 300
+velocidade = 50
+
+janela = pygame.display.set_mode((500,500))
+pygame.display.set_caption("Criando um jogo do Zero")
+
+janela_aberta = True
+while janela_aberta:
+        pygame.time.delay(60)
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                        janela_aberta = False
+        comandos = pygame.key.get_pressed()
+        if comandos[pygame.K_UP]:
+                y -= velocidade
+        if comandos[pygame.K_DOWN]:
+                y += velocidade
+        if comandos[pygame.K_LEFT]:
+                x -= velocidade
+        if comandos[pygame.K_RIGHT]:
+                x += velocidade
+
+        janela.fill((0,0,0))
+        pygame.draw.circle(janela, (0,250,0), (x,y), 10)
+        pygame.display.update()
+pygame.quit()
