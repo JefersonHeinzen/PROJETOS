@@ -1,0 +1,59 @@
+de  PyQt5  import   uic , QtWidgets
+import  mysql . conector
+
+banco  =  mysql . conector . conectar (
+    host = "localhost" ,
+    usuário = "root" ,
+    passwd = "" ,
+    banco de dados = "cadastro_produtos"
+)
+
+def  funcao_principal ():
+    linha1  =  formulario . lineEdit . texto ()
+    linha2  =  formulario . lineEdit_2 . texto ()
+    linha3  =  formulario . lineEdit_3 . texto ()
+
+    categoria  =  ""
+    
+    se  formulario . radioButton . isChecked ():
+        imprimir ( "Categoria Eletronicos adequados" )
+        categoria  = "Eletrônicos"
+    elif  formulario . radioButton_2 . isChecked ():
+        imprimir ( "Categoria Informatica real" )
+        categoria  = "Informatica"
+    mais :
+        imprimir ( "Categoria Alimentos Alimentos" )
+        categoria  = "Alimentos"
+
+    imprimir ( "Codigo:" , linha1 )
+    imprimir ( "Descricao:" , linha2 )
+    imprimir ( "Preco" , linha3 )
+
+    cursor  =  banco . cursor ()
+    comando_SQL  =  "INSERT INTO produtos (codigo, descricao, preco, categoria) VALORES (% s,% s,% s,% s)"
+    dados  = ( str ( linha1 ), str ( linha2 ), str ( linha3 ), categoria )
+    cursor . execute ( comando_SQL , dados )
+    banco . commit ()
+    
+
+app = QtWidgets . QApplication ([])
+formulario = uic . loadUi ( "formulario.ui" )
+formulario . pushButton . clicado . conectar ( funcao_principal )
+
+formulario . show ()
+app . exec ()
+
+
+# criando a tabela
+
+"" "criar produtos da tabela (id INT NOT NULL AUTO_INCREMENT,
+codigo INT,
+descrição VARCHAR (50),  
+preco DOUBLE,
+categoria VARCHAR (20),
+CHAVE PRIMÁRIA (id)
+); "" "
+
+# registros na tabela
+
+#INSERT INTO produtos (codigo, descricao, preco, categoria) VALORES (123, "impressora", 500,00, "informatica"); 
